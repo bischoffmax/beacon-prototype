@@ -1,6 +1,7 @@
 const addBeaconButton = document.getElementById("addBeaconButton");
 const locationOutput = document.getElementById("locationOutput");
 const distanceOutput = document.getElementById("distanceOutput");
+const availableBeacon = document.getElementById("availableBeacon");
 const savedBeacon = localStorage.getItem("beacon");
 const beaconSet = "Beacon set!"
 let updateCount = 0;
@@ -29,23 +30,16 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return distance;
 }
 
-// Ist bereits ein Beacon vorhanden?
-if (savedBeacon) {
-    beaconAvailable.textContent = beaconSet;
-
-    const beacon = JSON.parse(savedBeacon);
-
+function startTracking(beacon) {
     navigator.geolocation.watchPosition((position) => {
         updateCount++;
+
         const myLocation = {
             name: "Handy",
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
         }
         
-        locationOutput.textContent = 
-        `${beacon.name}: ${beacon.latitude}, ${beacon.longitude}`;
-       
         distanceOutput.textContent = 
         `Entfernung: ${Math.round(calculateDistance(
             beacon.latitude, 
@@ -53,6 +47,15 @@ if (savedBeacon) {
             myLocation.latitude,
             myLocation.longitude))} m | Updates ${updateCount}`;
     });
+};
+
+// Ist bereits ein Beacon vorhanden?
+if (savedBeacon) {
+    beaconAvailable.textContent = beaconSet;
+
+    const beacon = JSON.parse(savedBeacon);
+
+    startTracking(beacon);
 }
 else{
     beaconAvailable.textContent = "No Beacons set."
@@ -73,5 +76,7 @@ addBeaconButton.addEventListener("click", () => {
         `${beacon.name} Position: ${beacon.latitude}, ${beacon.longitude}`;
 
         beaconAvailable.textContent = beaconSet;
+
+        startTracking(beacon);
     });
 });
