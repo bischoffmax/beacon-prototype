@@ -44,6 +44,8 @@ function calculateBearing(lat1, lon1, lat2, lon2){
     const bearingRad = Math.atan2(y, x);
     const bearing = bearingRad * 180 / Math.PI;
     const normalizedBearing = (bearing + 360) % 360;
+
+    return normalizedBearing;
 }
 
 function startTracking(beacon) {
