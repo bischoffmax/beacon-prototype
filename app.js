@@ -30,6 +30,22 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return distance;
 }
 
+function calculateBearing(lat1, lon1, lat2, lon2){
+    const lat1Rad = toRad(lat1);
+    const lat2Rad = toRad(lat2);
+    const dLon = toRad(lon2 - lon1);
+
+    const y = Math.sin(dLon) * Math.cos(lat2Rad);
+
+    const x =
+        Math.cos(lat1Rad) * Math.sin(lat2Rad) -
+        Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(dLon);
+    
+    const bearingRad = Math.atan2(y, x);
+    const bearing = bearingRad * 180 / Math.PI;
+    const normalizedBearing = (bearing + 360) % 360;
+}
+
 function startTracking(beacon) {
     navigator.geolocation.watchPosition((position) => {
         updateCount++;
@@ -40,14 +56,18 @@ function startTracking(beacon) {
             longitude: position.coords.longitude,
         }
         
+        const bearing = calculateBearing(myLocation.latitude, myLocation.longitude, beacon.latitude, beacon.longitude);
+
         distanceOutput.textContent = 
         `Entfernung: ${Math.round(calculateDistance(
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m | Updates ${updateCount}`;
+            myLocation.longitude))} m | Bearing: ${Math.round(bearing)}° | Updates ${updateCount}`;
     });
 };
+
+
 
 // Ist bereits ein Beacon vorhanden?
 if (savedBeacon) {
