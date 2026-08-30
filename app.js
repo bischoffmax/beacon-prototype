@@ -1,10 +1,11 @@
-const addBeaconButton = document.getElementById("addBeaconButton");
-const locationOutput = document.getElementById("locationOutput");
-const distanceOutput = document.getElementById("distanceOutput");
-const availableBeacon = document.getElementById("availableBeacon");
-const savedBeacon = localStorage.getItem("beacon");
-const beaconSet = "Beacon set!"
-let updateCount = 0;
+const addBeaconButton   = document.getElementById("addBeaconButton");
+const locationOutput    = document.getElementById("locationOutput");
+const distanceOutput    = document.getElementById("distanceOutput");
+const availableBeacon   = document.getElementById("availableBeacon");
+const orientationOutput = document.getElementById("orientationOutput");
+const savedBeacon       = localStorage.getItem("beacon");
+const beaconSet         = "Beacon set!"
+let updateCount         = 0;
 
 locationOutput.textContent = "Bitte fügen Sie ein Beacon hinzu."
 
@@ -69,11 +70,19 @@ function startTracking(beacon) {
     });
 };
 
+window.addEventListener("deviceorientation", (event) => {
+    if(event.alpha){
+        orientationOutput.textContent = `Orientation: ${event.alpha}°`;
+    }
+    else{
+        orientationOutput.textContent = `No orientation available.`;
+    }
 
+});
 
 // Ist bereits ein Beacon vorhanden?
 if (savedBeacon) {
-    beaconAvailable.textContent = beaconSet;
+    availableBeacon.textContent = beaconSet;
 
     const beacon = JSON.parse(savedBeacon);
 
@@ -97,7 +106,7 @@ addBeaconButton.addEventListener("click", () => {
         locationOutput.textContent = 
         `${beacon.name} Position: ${beacon.latitude}, ${beacon.longitude}`;
 
-        beaconAvailable.textContent = beaconSet;
+        availableBeacon.textContent = beaconSet;
 
         startTracking(beacon);
     });
