@@ -7,7 +7,8 @@ const savedBeacon       = localStorage.getItem("beacon");
 const beaconSet         = "Beacon set!"
 let updateCount         = 0;
 
-locationOutput.textContent = "Bitte fügen Sie ein Beacon hinzu."
+availableBeacon.textContent = `No beacon available.`
+locationOutput.textContent = `Please add a beacon.`
 
 function toRad(value){
     return value * Math.PI / 180;
@@ -70,9 +71,9 @@ function startTracking(beacon) {
     });
 };
 
-window.addEventListener("deviceorientation", (event) => {
+window.addEventListener("deviceorientationabsolute", (event) => {
     if(event.alpha !== null){
-        orientationOutput.textContent = `Orientation: ${Math.round(event.alpha)}° | Absolute ${event.absolute}`;
+        orientationOutput.textContent = `Absolute orientation: ${Math.round(event.alpha)}°`;
     }
     else{
         orientationOutput.textContent = `No orientation available.`;
