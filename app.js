@@ -72,7 +72,7 @@ function startTracking(beacon) {
 
 window.addEventListener("deviceorientation", (event) => {
     if(event.alpha !== null){
-        orientationOutput.textContent = `Orientation: ${Math.round(event.alpha)}° | Absolute ${event.Absolute}`;
+        orientationOutput.textContent = `Orientation: ${Math.round(event.alpha)}° | Absolute ${event.absolute}`;
     }
     else{
         orientationOutput.textContent = `No orientation available.`;
