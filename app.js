@@ -71,7 +71,7 @@ function startTracking(beacon) {
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m | Updates ${updateCount}`;
+            myLocation.longitude))} m`;
     });
 }
 
@@ -85,8 +85,7 @@ function updateDirection() {
     if(currentBearing !== null && currentHeading !== null) {
         const relativeDirection = calculateRelativeDirection(currentBearing, currentHeading);
 
-        directionOutput.textContent = `Move in the following direction: 
-        ${getArrow(relativeDirection)} (${Math.round(relativeDirection)}°)`;
+        directionOutput.textContent = `${getArrow(relativeDirection)}`;
     }
 }
 
@@ -115,14 +114,14 @@ if (savedBeacon) {
     addBeaconButton.hidden = true;
     removeBeaconButton.hidden = false;
 
-    availableBeacon.textContent = `Beacon loaded.`;
+    availableBeacon.textContent = `ⓘ Beacon loaded.`;
 
     const beacon = JSON.parse(savedBeacon);
 
     startTracking(beacon);
 }
 else{
-    availableBeacon.textContent = `No Beacons set.`
+    availableBeacon.textContent = `ⓘ No Beacons set.`
 
     addBeaconButton.hidden = false;
     removeBeaconButton.hidden = true;
@@ -142,7 +141,7 @@ addBeaconButton.addEventListener("click", () => {
 
         localStorage.setItem("beacon", JSON.stringify(beacon));
 
-        availableBeacon.textContent = `Beacon set.`;
+        availableBeacon.textContent = `ⓘ Beacon set.`;
 
         startTracking(beacon);
     });
