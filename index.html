@@ -1,70 +1,33 @@
-body {
-    margin: 0;
-    padding: 24px;
-    padding-bottom: 90px;
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    background-color: #121212;
-    color: #F2F2F2;
+  <title>Beacon Prototype</title>
 
-    font-family: Roboto, system-ui, sans-serif;
-}
+  <link rel="stylesheet" href="style.css">
+</head>
 
-h1 {
-    font-weight: 550;
-}
+<body>
+  <main>
+    <h1>BEACON PROTOTYPE</h1>
+    <p id="availableBeacon"></p>
 
-p {
-    color: #B5B5B5;
-    font-size: 16px;
-}
+    <button id="removeBeaconButton" hidden>
+      ➖ Remove Beacon
+    </button>
+  
+    <p id="distanceOutput"></p>
 
-button {
-    background-color: #242424;
-    color: #F2F2F2;
+    <p id="directionOutput"></p>
 
-    border: 1px solid #444444;
-    border-radius: 8px;
+    <button id="addBeaconButton">
+      ➕ Add Beacon
+    </button>
 
-    padding: 10px 16px;
+  </main>
 
-    font-family: Roboto, system-ui, sans-serif;
-    font-size: 16px;
-}
-
-button:active {
-    background-color: #333333;
-}
-
-#directionOutput {
-    color: #B176F6;
-    font-size: 56px;
-    font-weight: 800;
-}
-
-#distanceOutput {
-    color: #F2F2F2;
-    font-size: 18px;
-}
-
-#addBeaconButton,
-#removeBeaconButton {
-    position: fixed;
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-
-    width: auto;
-    box-sizing: border-box;
-
-    padding: 18px 24px;
-
-    background-color: #242424;
-    color: #F2F2F2;
-
-    border: 1px solid #444444;
-    border-radius: 12px;
-
-    font-family: Roboto, system-ui, sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-}
+  <script src="app.js"></script>
+</body>
+</html>
