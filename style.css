@@ -36,14 +36,16 @@ button:active {
 }
 
 #directionOutput {
-    color: #B176F6;
-    font-size: 56px;
-    font-weight: 800;
+    text-align: center;
+    margin-top: 24px;
+    font-size: 72px;
+    font-weight: 500;
 }
 
 #distanceOutput {
     color: #F2F2F2;
     font-size: 18px;
+    text-align: center;
 }
 
 #addBeaconButton,
