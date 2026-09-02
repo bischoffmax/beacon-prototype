@@ -67,11 +67,11 @@ function startTracking(beacon) {
         updateDirection();
 
         distanceOutput.textContent = 
-        `Distance to ${beacon.name}: ${Math.round(calculateDistance(
+        `${Math.round(calculateDistance(
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m`;
+            myLocation.longitude))} m to ${beacon.name}`;
     });
 }
 
