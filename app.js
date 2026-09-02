@@ -3,6 +3,7 @@ const removeBeaconButton    = document.getElementById("removeBeaconButton");
 const distanceOutput        = document.getElementById("distanceOutput");
 const availableBeacon       = document.getElementById("availableBeacon");
 const directionOutput       = document.getElementById("directionOutput");
+const header                = document.getElementById("header")
 const savedBeacon           = localStorage.getItem("beacon");
 
 let updateCount             = 0;
@@ -11,6 +12,7 @@ let currentBearing          = null;
 let currentHeading          = null;
 
 availableBeacon.textContent = `Please set a Beacon.`
+header.textContent          = `BEACON PROTOTYPE`
 
 function toRad(value){
     return value * Math.PI / 180;
@@ -71,12 +73,12 @@ function startTracking(beacon) {
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m to ${beacon.name}`;
+            myLocation.longitude))} m to ${beacon.name} - ${calculateRelativeDirection(currentBearing, currentHeading)}`;
     });
 }
 
 function calculateRelativeDirection(bearing, heading) {
-    const relativeDirection = ((heading - bearing + 540) %360) - 180;
+    const relativeDirection = ((breaing - heading + 540) %360) - 180;
     
     return relativeDirection;
 }
