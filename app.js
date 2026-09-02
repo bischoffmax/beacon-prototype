@@ -68,12 +68,11 @@ function startTracking(beacon) {
 
         updateDirection();
 
+        const distance = calculateDistance(beacon.latitude, beacon.longitude, myLocation.latitude, myLocation.longitude);
+
         distanceOutput.textContent = 
-        `${Math.round(calculateDistance(
-            beacon.latitude, 
-            beacon.longitude,
-            myLocation.latitude,
-            myLocation.longitude))} m to ${beacon.name} - ${calculateRelativeDirection(currentBearing, currentHeading)}`;
+        `${Math.round(distance)} m to ${beacon.name}
+            ~${travelTime(distance)} min`;
     });
 }
 
@@ -118,6 +117,21 @@ function getArrow(relativeDirection) {
     }
     else {
         return "⬇️";
+    }
+}
+
+function travelTime(distance) {
+    const pathFactor = 1.3;
+    const walkingSpeed = 60;
+
+    const estimatedWalkingDistance = distance * pathFactor;
+    const estimatedTime = Math.round(estimatedWalkingDistance / walkingSpeed);
+
+    if (estimatedTime < 1) {
+        return "<1";
+    }
+    else {
+        return Math.round(estimatedTime);
     }
 }
 
