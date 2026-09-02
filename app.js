@@ -85,7 +85,8 @@ function updateDirection() {
     if(currentBearing !== null && currentHeading !== null) {
         const relativeDirection = calculateRelativeDirection(currentBearing, currentHeading);
 
-        directionOutput.textContent = `Move in the following: ${getArrow(relativeDirection)} (${Math.round(relativeDirection)})`;
+        directionOutput.textContent = `Move in the following direction: 
+        ${getArrow(relativeDirection)} (${Math.round(relativeDirection)}°)`;
     }
 }
 
