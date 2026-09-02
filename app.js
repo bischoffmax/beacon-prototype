@@ -1,8 +1,8 @@
 const addBeaconButton       = document.getElementById("addBeaconButton");
+const removeBeaconButton    = document.getElementById("removeBeaconButton");
 const distanceOutput        = document.getElementById("distanceOutput");
 const availableBeacon       = document.getElementById("availableBeacon");
 const directionOutput       = document.getElementById("directionOutput");
-const removeBeaconButton    = document.getElementById("removeBeaconButton");
 const savedBeacon           = localStorage.getItem("beacon");
 
 let updateCount             = 0;
@@ -150,4 +150,4 @@ addBeaconButton.addEventListener("click", () => {
 removeBeaconButton.addEventListener("click", () => {
     localStorage.removeItem("beacon");
     location.reload();
-}
+});
