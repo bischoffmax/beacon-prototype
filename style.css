@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 24px;
+    padding-bottom: 90px;
 
     background-color: #121212;
     color: #F2F2F2;
@@ -9,11 +10,12 @@ body {
 }
 
 h1 {
-    font-weight: 500;
+    font-weight: 550;
 }
 
 p {
     color: #B5B5B5;
+    font-size: 16px;
 }
 
 button {
@@ -35,11 +37,34 @@ button:active {
 
 #directionOutput {
     color: #B176F6;
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 56px;
+    font-weight: 800;
 }
 
 #distanceOutput {
     color: #F2F2F2;
     font-size: 18px;
+}
+
+#addBeaconButton,
+#removeBeaconButton {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+
+    width: auto;
+    box-sizing: border-box;
+
+    padding: 18px 24px;
+
+    background-color: #242424;
+    color: #F2F2F2;
+
+    border: 1px solid #444444;
+    border-radius: 12px;
+
+    font-family: Roboto, system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
 }
