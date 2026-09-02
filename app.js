@@ -90,20 +90,32 @@ function updateDirection() {
 }
 
 function getArrow(relativeDirection) {
-    if (relativeDirection < -30) {
-        return "⬅️"
-    }    
-    else if (relativeDirection < -15) {
+    if (relativeDirection >= -22.5 && relativeDirection <= 22.5) {
+        return "⬆️";
+    }
+    else if (relativeDirection > 22.5 && relativeDirection <= 67.5) {
         return "↗️";
     }
-    else if (relativeDirection > 30) {
-        return "↖️";
-    }
-    else if (relativeDirection > 15) {
+    else if (relativeDirection > 67.5 && relativeDirection <= 112.5) {
         return "➡️";
     }
+    else if (relativeDirection > 112.5 && relativeDirection <= 157.5) {
+        return "↘️";
+    }
+    else if (relativeDirection > 157.5) {
+        return "⬇️";
+    }
+    else if (relativeDirection < -22.5 && relativeDirection >= -67.5) {
+        return "↖️";
+    }
+    else if (relativeDirection < -67.5 && relativeDirection >= -112.5) {
+        return "⬅️";
+    }
+    else if (relativeDirection < -112.5 && relativeDirection >= -157.5) {
+        return "↙️";
+    }
     else {
-        return "⬆️";
+        return "⬇️";
     }
 }
 
