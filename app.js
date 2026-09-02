@@ -75,7 +75,7 @@ function startTracking(beacon) {
 }
 
 function calculateRelativeDirection(bearing, heading) {
-    const relativeDirection = ((bearing - heading + 540) %360) - 180;
+    const relativeDirection = ((heading - bearing + 540) %360) - 180;
     
     return relativeDirection;
 }
