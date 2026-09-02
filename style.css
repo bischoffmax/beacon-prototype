@@ -61,6 +61,14 @@ button:active {
     margin: 16px 0 4px 0;
 }
 
+#travelTimeText {
+    color: #d6d6d6;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 300;
+    margin: 16px 0 4px 0;
+}
+
 #addBeaconButton,
 #removeBeaconButton {
     position: fixed;
