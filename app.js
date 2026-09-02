@@ -3,9 +3,12 @@ const locationOutput    = document.getElementById("locationOutput");
 const distanceOutput    = document.getElementById("distanceOutput");
 const availableBeacon   = document.getElementById("availableBeacon");
 const orientationOutput = document.getElementById("orientationOutput");
+const directionOutput   = document.getElementById("directionOutput");
 const savedBeacon       = localStorage.getItem("beacon");
 const beaconSet         = "Beacon set!"
 let updateCount         = 0;
+let currentBearing      = null;
+let currentHeading      = null;
 
 availableBeacon.textContent = `No beacon available.`
 locationOutput.textContent = `Please add a beacon.`
@@ -60,22 +63,39 @@ function startTracking(beacon) {
             longitude: position.coords.longitude,
         }
         
-        const bearing = calculateBearing(myLocation.latitude, myLocation.longitude, beacon.latitude, beacon.longitude);
+        currentBearing = calculateBearing(myLocation.latitude, myLocation.longitude, beacon.latitude, beacon.longitude);
+
+        updateDirection();
 
         distanceOutput.textContent = 
         `Entfernung: ${Math.round(calculateDistance(
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m | Bearing: ${Math.round(bearing)}° | Updates ${updateCount}`;
+            myLocation.longitude))} m | Bearing: ${Math.round(currentBearing)}° | Updates ${updateCount}`;
     });
-};
+}
+
+function calculateRelativeDrection(bearing, heading) {
+    const relativeDirection = ((bearing - heading + 540) %360) - 180;
+    return relativeDirection;
+}
+
+function updateDirection() {
+    if(currentBearing !== null && currentHeading !== null) {
+        const relativeDirection = calculateRelativeDistance(currentBearing, currentHeading);
+
+        directionOutput.textContent = `Direction: ${Math.round(relativeDirection)}°`;
+    }
+}
 
 window.addEventListener("deviceorientationabsolute", (event) => {
     if(event.alpha !== null){
-        const heading = (360 - event.alpha) % 360;
+        currentHeading = (360 - event.alpha) % 360;
 
-        orientationOutput.textContent = `Heading: ${Math.round(heading)}°`;
+        updateDirection();
+
+        orientationOutput.textContent = `Heading: ${Math.round(currentHeading)}°`;
     }
     else{
         orientationOutput.textContent = `No orientation available.`;
@@ -91,7 +111,7 @@ if (savedBeacon) {
     startTracking(beacon);
 }
 else{
-    beaconAvailable.textContent = "No Beacons set."
+    availableBeacon.textContent = "No Beacons set."
 }
 
 // Beacon hinzufuegen
