@@ -90,14 +90,20 @@ function updateDirection() {
 }
 
 function getArrow(relativeDirection) {
-    if (relativeDirection < -15) {
-        return "→";
+    if (relativeDirection < -30) {
+        return "⬅️"
+    }    
+    else if (relativeDirection < -15) {
+        return "↗️";
+    }
+    else if (relativeDirection > 30) {
+        return "↖️";
     }
     else if (relativeDirection > 15) {
-        return "←";
+        return "➡️";
     }
     else {
-        return "↑";
+        return "⬆️";
     }
 }
 
