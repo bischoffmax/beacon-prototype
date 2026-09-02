@@ -3,7 +3,8 @@ const removeBeaconButton    = document.getElementById("removeBeaconButton");
 const distanceOutput        = document.getElementById("distanceOutput");
 const availableBeacon       = document.getElementById("availableBeacon");
 const directionOutput       = document.getElementById("directionOutput");
-const header                = document.getElementById("header")
+const header                = document.getElementById("header");
+const travelTimeText        = document.getElementById("travelTimeText");
 const savedBeacon           = localStorage.getItem("beacon");
 
 let updateCount             = 0;
@@ -70,9 +71,8 @@ function startTracking(beacon) {
 
         const distance = calculateDistance(beacon.latitude, beacon.longitude, myLocation.latitude, myLocation.longitude);
 
-        distanceOutput.textContent = 
-        `${Math.round(distance)} m to ${beacon.name}
-            ~${travelTime(distance)} min`;
+        distanceOutput.textContent = `${Math.round(distance)} m to ${beacon.name}`;
+        travelTimeText.textContent = `~${travelTime(distance)} min`
     });
 }
 
@@ -147,14 +147,14 @@ window.addEventListener("deviceorientationabsolute", (event) => {
 if (savedBeacon) {
     addBeaconButton.hidden = true;
     removeBeaconButton.hidden = false;
-
-    availableBeacon.textContent = `ⓘ Beacon loaded.`;
+    availableBeacon.hidden = true;
 
     const beacon = JSON.parse(savedBeacon);
 
     startTracking(beacon);
 }
 else{
+    availableBeacon.hidden = false;
     availableBeacon.textContent = `ⓘ No Beacons set.`
 
     addBeaconButton.hidden = false;
@@ -174,8 +174,8 @@ addBeaconButton.addEventListener("click", () => {
         };
 
         localStorage.setItem("beacon", JSON.stringify(beacon));
-
-        availableBeacon.textContent = `ⓘ Beacon set.`;
+        
+        availableBeacon.hidden = true;
 
         startTracking(beacon);
     });
