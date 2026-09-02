@@ -1,17 +1,15 @@
 const addBeaconButton   = document.getElementById("addBeaconButton");
-const locationOutput    = document.getElementById("locationOutput");
 const distanceOutput    = document.getElementById("distanceOutput");
 const availableBeacon   = document.getElementById("availableBeacon");
-const orientationOutput = document.getElementById("orientationOutput");
 const directionOutput   = document.getElementById("directionOutput");
 const savedBeacon       = localStorage.getItem("beacon");
-const beaconSet         = "Beacon set!"
+
 let updateCount         = 0;
+
 let currentBearing      = null;
 let currentHeading      = null;
 
-availableBeacon.textContent = `No beacon available.`
-locationOutput.textContent = `Please add a beacon.`
+availableBeacon.textContent = `Please set a Beacon.`
 
 function toRad(value){
     return value * Math.PI / 180;
@@ -68,67 +66,60 @@ function startTracking(beacon) {
         updateDirection();
 
         distanceOutput.textContent = 
-        `Entfernung: ${Math.round(calculateDistance(
+        `Distance to ${beacon.name}: ${Math.round(calculateDistance(
             beacon.latitude, 
             beacon.longitude,
             myLocation.latitude,
-            myLocation.longitude))} m | Bearing: ${Math.round(currentBearing)}° | Updates ${updateCount}`;
+            myLocation.longitude))} m | Updates ${updateCount}`;
     });
 }
 
-function calculateRelativeDrection(bearing, heading) {
+function calculateRelativeDirection(bearing, heading) {
     const relativeDirection = ((bearing - heading + 540) %360) - 180;
+    
     return relativeDirection;
 }
 
 function updateDirection() {
     if(currentBearing !== null && currentHeading !== null) {
-        const relativeDirection = calculateRelativeDistance(currentBearing, currentHeading);
+        const relativeDirection = calculateRelativeDirection(currentBearing, currentHeading);
 
         directionOutput.textContent = `Direction: ${Math.round(relativeDirection)}°`;
     }
 }
 
 window.addEventListener("deviceorientationabsolute", (event) => {
-    if(event.alpha !== null){
+    if (event.alpha !== null) {
         currentHeading = (360 - event.alpha) % 360;
 
         updateDirection();
-
-        orientationOutput.textContent = `Heading: ${Math.round(currentHeading)}°`;
-    }
-    else{
-        orientationOutput.textContent = `No orientation available.`;
     }
 });
 
 // Ist bereits ein Beacon vorhanden?
 if (savedBeacon) {
-    availableBeacon.textContent = beaconSet;
+    availableBeacon.textContent = `Beacon loaded.`;
 
     const beacon = JSON.parse(savedBeacon);
 
     startTracking(beacon);
 }
 else{
-    availableBeacon.textContent = "No Beacons set."
+    availableBeacon.textContent = `No Beacons set.`
 }
 
 // Beacon hinzufuegen
 addBeaconButton.addEventListener("click", () => {
     navigator.geolocation.getCurrentPosition((position) => {
         const beacon = {
-            name: "Zelt",
+            name: "Home",
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
         };
 
         localStorage.setItem("beacon", JSON.stringify(beacon));
 
-        locationOutput.textContent = 
-        `${beacon.name} Position: ${beacon.latitude}, ${beacon.longitude}`;
-
-        availableBeacon.textContent = beaconSet;
+        availableBeacon.textContent = `Beacon set.`;
 
         startTracking(beacon);
     });
