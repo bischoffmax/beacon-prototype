@@ -75,7 +75,7 @@ function startTracking(beacon) {
 }
 
 function calculateRelativeDirection(bearing, heading) {
-    const relativeDirection = ((bearing - heading + 540) %360) - 180;
+    const relativeDirection = ((heading - bearing + 540) %360) - 180;
     
     return relativeDirection;
 }
@@ -84,7 +84,19 @@ function updateDirection() {
     if(currentBearing !== null && currentHeading !== null) {
         const relativeDirection = calculateRelativeDirection(currentBearing, currentHeading);
 
-        directionOutput.textContent = `Direction: ${Math.round(relativeDirection)}°`;
+        directionOutput.textContent = `Direction: ${getArrow(relativeDirection)} ${Math.round(relativeDirection)}°`;
+    }
+}
+
+function getArrow(relativeDirection) {
+    if (relativeDirection < -15) {
+        return "←";
+    }
+    else if (relativeDirection > 15) {
+        return "→";
+    }
+    else {
+        return "↑";
     }
 }
 
